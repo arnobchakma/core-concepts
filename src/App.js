@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -15,6 +15,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>I am a person who write react</p>
+        <Posts></Posts>
         <Counter></Counter>
         <ul>
             <li>{array[0]}</li>
@@ -50,6 +51,28 @@ function Counter(){
     </div>
   )
 }
+
+// This function is for API related How to call api in server
+function Posts(){
+  const [posts, setPosts] = useState([])
+  useEffect(() =>{
+    fetch(`https://jsonplaceholder.typicode.com/posts`)
+    .then(res => res.json())
+    .then(data => setPosts(data));
+  })
+  return (
+    <div>
+      <h2>Posts:{posts.length}</h2>
+      <ul>
+        {
+          posts.map(post => <li>{post.title}</li>)
+        }
+      </ul>
+    </div>
+  )
+  }
+  
+  
 // this is product function
 function Product(props){
   const style={
